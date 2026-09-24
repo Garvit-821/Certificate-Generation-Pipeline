@@ -1,0 +1,86 @@
+{
+  "name": "Modern Gold Excellence",
+  "template_image": "templates/modern_gold.png",
+  "dimensions": {
+    "width": 1920,
+    "height": 1080
+  },
+  "fields": [
+    {
+      "id": "name",
+      "type": "text",
+      "field": "name",
+      "x": 960,
+      "y": 335,
+      "font_path": "fonts/PlayfairDisplay-Bold.ttf",
+      "font_size": 56,
+      "min_font_size": 26,
+      "max_width": 1400,
+      "color": "#0f172a",
+      "align": "center",
+      "auto_fit": true
+    },
+    {
+      "id": "role",
+      "type": "text",
+      "field": "role",
+      "x": 960,
+      "y": 460,
+      "font_path": "fonts/Montserrat-Bold.ttf",
+      "font_size": 24,
+      "max_width": 1300,
+      "color": "#9a3412",
+      "align": "center",
+      "prefix": "for exemplary performance and dedication as "
+    },
+    {
+      "id": "event",
+      "type": "text",
+      "field": "event",
+      "x": 960,
+      "y": 525,
+      "font_path": "fonts/Montserrat-Regular.ttf",
+      "font_size": 22,
+      "max_width": 1400,
+      "color": "#1e293b",
+      "align": "center",
+      "prefix": "in the "
+    },
+    {
+      "id": "date",
+      "type": "text",
+      "field": "date",
+      "x": 960,
+      "y": 585,
+      "font_path": "fonts/Montserrat-Regular.ttf",
+      "font_size": 17,
+      "max_width": 600,
+      "color": "#475569",
+      "align": "center",
+      "prefix": "Conferred on "
+    },
+    {
+      "id": "qr_code",
+      "type": "qr_code",
+      "field": "verification_url",
+      "x": 1670,
+      "y": 840,
+      "size": 105,
+      "fill_color": "#0f172a",
+      "back_color": "#ffffff"
+    },
+    {
+      "id": "cert_id",
+      "type": "text",
+      "field": "cert_id",
+      "x": 1722,
+      "y": 960,
+      "font_path": "fonts/Montserrat-Regular.ttf",
+      "font_size": 12,
+      "max_width": 250,
+      "color": "#475569",
+      "align": "center",
+      "prefix": "ID: "
+    }
+  ]
+}

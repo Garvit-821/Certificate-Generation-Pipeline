@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genesis Certificate Studio & 700+ Batch Pipeline</title>
+    <meta name="description" content="High-Performance Certificate Generation Studio & Batch Pipeline supporting 700+ recipients with visual drag-and-drop template designer, dynamic auto-scaling, QR code verification, and high-speed PDF/PNG export.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,400&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app-container">
+        <!-- TOP NAVIGATION BAR -->
+        <header id="top-navbar">
+            <div class="nav-brand">
+                <div class="logo-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <h1>GENESIS <span>Certificate Pipeline</span></h1>
+                    <p class="brand-badge">Batch Engine: 700+ Records</p>
+                </div>
+            </div>
+
+            <!-- Recipient Switcher Toolbar -->
+            <div class="recipient-nav" id="recipient-nav-bar">
+                <button id="btn-prev-rec" class="btn-icon" title="Previous Recipient (Arrow Left)">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <div class="rec-info">
+                    <span class="rec-counter" id="rec-counter-text">Recipient 1 of 700</span>
+                    <strong class="rec-name" id="rec-current-name">Sara Fernandez</strong>
+                </div>
+                <button id="btn-next-rec" class="btn-icon" title="Next Recipient (Arrow Right)">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+                <input type="number" id="jump-to-index" min="1" max="700" value="1" title="Jump to record number" class="num-input-small">
+            </div>
+
+            <!-- Header Action Buttons -->
+            <div class="nav-actions">
+                <button id="btn-download-single" class="btn btn-secondary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    Download Current (PNG/PDF)
+                </button>
+                <button id="btn-batch-modal" class="btn btn-primary glow-button">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                    Batch Generate All 700+
+                </button>
+            </div>
+        </header>
+
+        <!-- MAIN WORKSPACE -->
+        <main id="main-workspace">
+            <!-- LEFT CONTROL PANEL -->
+            <aside id="sidebar-panel">
+                <!-- Section 1: Template & Data Presets -->
+                <div class="sidebar-card">
+                    <div class="card-header">
+                        <h3>1. Template & Preset</h3>
+                    </div>
+                    <div class="form-group">
+                        <label for="template-select">Certificate Design Theme</label>
+                        <select id="template-select" class="form-control">
+                            <option value="modern_gold">Modern Gold Excellence</option>
+                            <option value="tech_innovation">Tech Innovation (Slate/Cyan)</option>
+                            <option value="academic_classic">Academic Classic (Royal Blue)</option>
+                        </select>
+                    </div>
+
+                    <div class="file-upload-row">
+                        <label class="btn btn-outline btn-sm upload-btn">
+                            <span>Upload Custom Template</span>
+                            <input type="file" id="custom-template-input" accept="image/*" style="display:none;">
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Section 2: Recipient Data Source -->
+                <div class="sidebar-card">
+                    <div class="card-header">
+                        <h3>2. Data Source</h3>
+                        <span class="badge" id="data-count-badge">700 Loaded</span>
+                    </div>
+                    <div class="data-source-actions">
+                        <label class="btn btn-outline btn-sm upload-btn full-width">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+                            <span>Upload CSV / Excel File</span>
+                            <input type="file" id="custom-csv-input" accept=".csv, .xlsx, .xls, .json" style="display:none;">
+                        </label>
+                        <button id="btn-reload-sample" class="btn btn-ghost btn-sm">Reset to 700 Sample Data</button>
+                    </div>
+                </div>
+
+                <!-- Section 3: Visual Field Layer Inspector -->
+                <div class="sidebar-card">
+                    <div class="card-header">
+                        <h3>3. Field Customizer</h3>
+                        <button id="btn-add-field" class="btn btn-ghost btn-xs">+ Add Field</button>
+                    </div>
+
+                    <!-- Fields Selector Tabs -->
+                    <div class="field-pill-selector" id="field-pill-list">
+                        <!-- Populated by JS: [Name] [Role] [Event] [Date] [ID] [QR Code] -->
+                    </div>
+
+                    <!-- Active Field Editor -->
+                    <div id="active-field-editor" class="field-properties-box">
+                        <div class="form-row">
+                            <div class="form-group flex-1">
+                                <label>Variable Field</label>
+                                <select id="prop-field-key" class="form-control">
+                                    <option value="name">name</option>
+                                    <option value="role">role</option>
+                                    <option value="event">event</option>
+                                    <option value="date">date</option>
+                                    <option value="cert_id">cert_id</option>
+                                    <option value="verification_url">verification_url</option>
+                                </select>
+                            </div>
+                            <div class="form-group flex-1">
+                                <label>Field Type</label>
+                                <select id="prop-field-type" class="form-control">
+                                    <option value="text">Text Overlay</option>
+                                    <option value="qr_code">QR Code</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Text Specific Properties -->
+                        <div id="text-prop-group">
+                            <div class="form-row">
+                                <div class="form-group flex-2">
+                                    <label>Font Family</label>
+                                    <select id="prop-font-family" class="form-control">
+                                        <option value="'Playfair Display', serif">Playfair Display (Serif)</option>
+                                        <option value="'Cinzel', serif">Cinzel (Roman / Classical)</option>
+                                        <option value="'Montserrat', sans-serif">Montserrat (Modern Sans)</option>
+                                        <option value="'Great Vibes', cursive">Great Vibes (Calligraphy)</option>
+                                        <option value="'Roboto', sans-serif">Roboto (Clean Sans)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group flex-1">
+                                    <label>Font Size</label>
+                                    <input type="number" id="prop-font-size" min="10" max="150" value="56" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group flex-1">
+                                    <label>Color</label>
+                                    <div class="color-picker-wrapper">
+                                        <input type="color" id="prop-color" value="#0f172a">
+                                        <input type="text" id="prop-color-hex" value="#0f172a" class="form-control color-hex-text">
+                                    </div>
+                                </div>
+                                <div class="form-group flex-1">
+                                    <label>Alignment</label>
+                                    <div class="btn-group-toggle" id="prop-align-group">
+                                        <button data-align="left" class="btn-toggle">L</button>
+                                        <button data-align="center" class="btn-toggle active">C</button>
+                                        <button data-align="right" class="btn-toggle">R</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Prefix Text</label>
+                                <input type="text" id="prop-prefix" placeholder="e.g. for exemplary performance as " class="form-control">
+                            </div>
+
+                            <div class="form-row checkbox-row">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="prop-auto-fit" checked>
+                                    <span>Auto-fit & Shrink long names</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Coordinates Box -->
+                        <div class="form-row coords-row">
+                            <div class="form-group flex-1">
+                                <label>X Position</label>
+                                <input type="number" id="prop-x" class="form-control">
+                            </div>
+                            <div class="form-group flex-1">
+                                <label>Y Position</label>
+                                <input type="number" id="prop-y" class="form-control">
+                            </div>
+                            <div class="form-group flex-1" id="prop-size-group" style="display:none;">
+                                <label>QR Size</label>
+                                <input type="number" id="prop-size" min="40" max="400" value="105" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 4: CLI Config Sync -->
+                <div class="sidebar-card">
+                    <div class="card-header">
+                        <h3>4. Python CLI Sync</h3>
+                    </div>
+                    <p class="hint-text">Export layout JSON to pass directly into <code>python generate.py -c config.json</code></p>
+                    <div class="config-sync-buttons">
+                        <button id="btn-export-config-json" class="btn btn-outline btn-sm">Export Config JSON</button>
+                        <button id="btn-import-config-json" class="btn btn-ghost btn-sm">Load Config JSON</button>
+                        <input type="file" id="config-json-input" accept=".json" style="display:none;">
+                    </div>
+                </div>
+            </aside>
+
+            <!-- CENTER CANVAS PREVIEW AREA -->
+            <section id="canvas-viewport-container">
+                <div class="viewport-toolbar">
+                    <div class="zoom-controls">
+                        <button id="btn-zoom-out" class="btn-icon-sm" title="Zoom Out">-</button>
+                        <span id="zoom-level-text">Fit</span>
+                        <button id="btn-zoom-in" class="btn-icon-sm" title="Zoom In">+</button>
+                        <button id="btn-zoom-fit" class="btn-ghost btn-xs">Reset Fit</button>
+                    </div>
+
+                    <div class="canvas-hints">
+                        <span>💡 Drag any text or QR code to reposition directly on canvas</span>
+                    </div>
+
+                    <div class="resolution-badge" id="canvas-res-badge">
+                        1920 × 1080 (300 DPI)
+                    </div>
+                </div>
+
+                <!-- Canvas Wrapper with Pan/Zoom support -->
+                <div id="canvas-stage">
+                    <canvas id="certificate-canvas" width="1920" height="1080"></canvas>
+                    <div id="selection-overlay"></div>
+                </div>
+            </section>
+        </main>
+
+        <!-- BATCH GENERATION MODAL -->
+        <div id="batch-modal" class="modal-backdrop" style="display:none;">
+            <div class="modal-dialog">
+                <div class="modal-header">
+                    <div class="modal-title-wrap">
+                        <h2>Batch Certificate Pipeline Engine</h2>
+                        <p>Generate certificates for all <strong id="modal-total-count">700</strong> recipients with one click</p>
+                    </div>
+                    <button id="btn-close-modal" class="btn-close">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <!-- Options -->
+                    <div class="batch-options-grid" id="batch-settings-view">
+                        <div class="option-card">
+                            <h4>Select Output Formats</h4>
+                            <div class="format-checkboxes">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="chk-fmt-png" checked>
+                                    <span>High-Resolution PNG (Individual files in ZIP)</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="chk-fmt-pdf" checked>
+                                    <span>Single Master PDF (All 700 pages consolidated)</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="chk-fmt-indiv-pdf">
+                                    <span>Individual PDFs (Separate .pdf for each recipient)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="option-card">
+                            <h4>Execution Mode</h4>
+                            <p class="hint-text">Choose between fast in-browser export or high-speed Python terminal CLI</p>
+                            <div class="engine-pills">
+                                <button class="btn btn-primary btn-sm active" id="btn-run-browser-batch">Start Browser Batch Engine</button>
+                            </div>
+                            <div class="cli-cmd-preview">
+                                <span class="cli-lbl">Terminal CLI Command:</span>
+                                <code>python3 generate.py --data data/sample_recipients.csv --format pdf,png --workers 8</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Progress View (Shown during generation) -->
+                    <div id="batch-progress-view" style="display:none;">
+                        <div class="progress-stats">
+                            <div class="stat-box">
+                                <span class="stat-label">Progress</span>
+                                <span class="stat-val" id="progress-percentage">0%</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-label">Processed</span>
+                                <span class="stat-val" id="progress-count">0 / 700</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-label">Speed</span>
+                                <span class="stat-val" id="progress-speed">0 cert/s</span>
+                            </div>
+                        </div>
+
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" id="progress-bar-fill"></div>
+                        </div>
+
+                        <div class="current-processing-name" id="current-processing-text">
+                            Rendering certificate for Sara Fernandez...
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer" id="modal-footer-view">
+                    <button id="btn-cancel-batch" class="btn btn-secondary">Close</button>
+                    <button id="btn-start-batch-exec" class="btn btn-primary glow-button">Start Batch Generation</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- HIDDEN QR CODE CANVAS CONTAINER -->
+        <div id="qr-generator-temp" style="display:none;"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

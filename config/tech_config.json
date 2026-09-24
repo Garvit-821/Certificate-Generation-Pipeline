@@ -1,0 +1,86 @@
+{
+  "name": "Tech Innovation Cyan",
+  "template_image": "templates/tech_innovation.png",
+  "dimensions": {
+    "width": 1920,
+    "height": 1080
+  },
+  "fields": [
+    {
+      "id": "name",
+      "type": "text",
+      "field": "name",
+      "x": 960,
+      "y": 335,
+      "font_path": "fonts/Montserrat-Bold.ttf",
+      "font_size": 52,
+      "min_font_size": 28,
+      "max_width": 1400,
+      "color": "#38bdf8",
+      "align": "center",
+      "auto_fit": true
+    },
+    {
+      "id": "role",
+      "type": "text",
+      "field": "role",
+      "x": 960,
+      "y": 465,
+      "font_path": "fonts/Montserrat-Bold.ttf",
+      "font_size": 22,
+      "max_width": 1300,
+      "color": "#f8fafc",
+      "align": "center",
+      "prefix": "Track / Distinction: "
+    },
+    {
+      "id": "event",
+      "type": "text",
+      "field": "event",
+      "x": 960,
+      "y": 525,
+      "font_path": "fonts/Montserrat-Regular.ttf",
+      "font_size": 20,
+      "max_width": 1400,
+      "color": "#94a3b8",
+      "align": "center",
+      "prefix": "Presented at: "
+    },
+    {
+      "id": "date",
+      "type": "text",
+      "field": "date",
+      "x": 400,
+      "y": 840,
+      "font_path": "fonts/Montserrat-Regular.ttf",
+      "font_size": 17,
+      "max_width": 400,
+      "color": "#94a3b8",
+      "align": "center",
+      "prefix": "Issued: "
+    },
+    {
+      "id": "cert_id",
+      "type": "text",
+      "field": "cert_id",
+      "x": 1520,
+      "y": 840,
+      "font_path": "fonts/Montserrat-Regular.ttf",
+      "font_size": 15,
+      "max_width": 400,
+      "color": "#64748b",
+      "align": "center",
+      "prefix": "Token: "
+    },
+    {
+      "id": "qr_code",
+      "type": "qr_code",
+      "field": "verification_url",
+      "x": 1460,
+      "y": 690,
+      "size": 120,
+      "fill_color": "#0f172a",
+      "back_color": "#38bdf8"
+    }
+  ]
+}

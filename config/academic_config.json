@@ -1,0 +1,86 @@
+{
+  "name": "Academic Classic Blue",
+  "template_image": "templates/academic_classic.png",
+  "dimensions": {
+    "width": 1920,
+    "height": 1080
+  },
+  "fields": [
+    {
+      "id": "name",
+      "type": "text",
+      "field": "name",
+      "x": 960,
+      "y": 335,
+      "font_path": "fonts/PlayfairDisplay-Bold.ttf",
+      "font_size": 52,
+      "min_font_size": 28,
+      "max_width": 1400,
+      "color": "#1e3a8a",
+      "align": "center",
+      "auto_fit": true
+    },
+    {
+      "id": "role",
+      "type": "text",
+      "field": "role",
+      "x": 960,
+      "y": 465,
+      "font_path": "fonts/Montserrat-Bold.ttf",
+      "font_size": 22,
+      "max_width": 1300,
+      "color": "#b48c3c",
+      "align": "center",
+      "prefix": "having demonstrated exceptional merit as "
+    },
+    {
+      "id": "event",
+      "type": "text",
+      "field": "event",
+      "x": 960,
+      "y": 525,
+      "font_path": "fonts/Montserrat-Regular.ttf",
+      "font_size": 20,
+      "max_width": 1400,
+      "color": "#475569",
+      "align": "center",
+      "prefix": "for successful participation in "
+    },
+    {
+      "id": "date",
+      "type": "text",
+      "field": "date",
+      "x": 400,
+      "y": 840,
+      "font_path": "fonts/Montserrat-Regular.ttf",
+      "font_size": 17,
+      "max_width": 400,
+      "color": "#475569",
+      "align": "center",
+      "prefix": "Conferred on: "
+    },
+    {
+      "id": "cert_id",
+      "type": "text",
+      "field": "cert_id",
+      "x": 1520,
+      "y": 840,
+      "font_path": "fonts/Montserrat-Regular.ttf",
+      "font_size": 15,
+      "max_width": 400,
+      "color": "#64748b",
+      "align": "center",
+      "prefix": "Reg No: "
+    },
+    {
+      "id": "qr_code",
+      "type": "qr_code",
+      "field": "verification_url",
+      "x": 1460,
+      "y": 690,
+      "size": 120,
+      "fill_color": "#1e3a8a",
+      "back_color": "#ffffff"
+    }
+  ]
+}
