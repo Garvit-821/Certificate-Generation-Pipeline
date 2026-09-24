@@ -7,7 +7,7 @@ A production-ready, high-throughput pipeline designed to batch generate thousand
 ## ⚡ Key Highlights
 
 - **Fast Multiprocessing**: Generates 700+ high-resolution certificates in seconds using parallel Python workers.
-- **Interactive Visual Studio (Web UI)**: Built with the **IBM Carbon Design System** — featuring drag-and-drop layer positioning, live alignment grids, print safe margin guides, and real-time element inspection.
+- **Interactive Visual Studio (Web UI)**: Drag-and-drop placeholder positioning directly on top of your certificate background template.
 - **Live 700-Recipient Preview**: Switch through recipient rows (1 to 700) in real time to verify that text layouts and long names fit cleanly.
 - **Smart Dynamic Auto-Scaling**: Automatically scales font size down when a name or title is unusually long so it never overflows template borders.
 - **Dynamic QR Code Engine**: Generates unique QR codes for verification (linking to a verification URL or embedding recipient metadata).
@@ -74,9 +74,9 @@ Certificate Generation Pipeline/
 │   ├── modern_gold.png        # Luxury Gold & Navy background template
 │   ├── tech_innovation.png    # Modern Tech Slate/Cyan background template
 │   └── academic_classic.png   # Ivy League Academic background template
-├── web/                       # Interactive Visual Studio Web App (IBM Carbon Design System)
-│   ├── index.html             # Studio UI layout (Carbon v11 flat geometry)
-│   ├── style.css              # IBM Carbon Design tokens, typography & styling
+├── web/                       # Interactive Visual Studio Web App
+│   ├── index.html             # Studio UI layout
+│   ├── style.css              # Dark mode luxury styling
 │   └── app.js                 # HTML5 canvas rendering & batch zip export
 ├── output/                    # Generated PDF & PNG certificates
 ├── generate.py                # Command-line entrypoint

@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Genesis Certificate Pipeline & Studio — IBM Carbon Design</title>
-    <meta name="description" content="Enterprise-grade Certificate Generation Pipeline & Studio supporting 700+ recipients with visual drag-and-drop template designer, dynamic auto-scaling, QR code verification, and high-speed PDF/PNG export.">
+    <title>Genesis Certificate Studio & 700+ Batch Pipeline</title>
+    <meta name="description" content="High-Performance Certificate Generation Studio & Batch Pipeline supporting 700+ recipients with visual drag-and-drop template designer, dynamic auto-scaling, QR code verification, and high-speed PDF/PNG export.">
     
-    <!-- Google Fonts: IBM Plex Sans (Core Carbon Type) & Certificate Typefaces -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Cinzel:wght@500;700;900&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,400&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,400&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <!-- External Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
@@ -22,182 +22,107 @@
 </head>
 <body>
     <div id="app-container">
-        <!-- CARBON UTILITY BAR (Height: 32px, Surface-1, Caption Typography) -->
-        <div id="utility-bar">
-            <div class="utility-left">
-                <span class="utility-badge">IBM Carbon System</span>
-                <span class="utility-divider">|</span>
-                <span class="utility-title">Genesis Certificate Pipeline & Batch Automation</span>
-                <span class="utility-divider">|</span>
-                <span class="utility-status" id="system-status-indicator">
-                    <span class="status-dot"></span> Pipeline Ready: <strong id="util-rec-count">700 Records</strong>
-                </span>
-            </div>
-            <div class="utility-right">
-                <span class="utility-item">Canvas: <strong id="util-dims">1920 × 1080 (300 DPI)</strong></span>
-                <span class="utility-divider">|</span>
-                <span class="utility-item">CLI Sync: <span class="badge-tag">generate.py</span></span>
-                <span class="utility-divider">|</span>
-                <button id="btn-quick-shortcuts" class="utility-link" title="View Keyboard Shortcuts">Shortcuts (Ctrl+/)</button>
-            </div>
-        </div>
-
-        <!-- CARBON TOP NAVIGATION BAR (Height: 48px, White Canvas, Hairline Border) -->
+        <!-- TOP NAVIGATION BAR -->
         <header id="top-navbar">
             <div class="nav-brand">
-                <div class="brand-logo-mark">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <rect x="2" y="2" width="20" height="20" rx="0"></rect>
-                        <path d="M7 12h10"></path>
-                        <path d="M12 7v10"></path>
+                <div class="logo-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                     </svg>
                 </div>
-                <div class="brand-headings">
-                    <span class="brand-title">IBM <strong>Genesis</strong></span>
-                    <span class="brand-slash">/</span>
-                    <span class="brand-sub">Certificate Studio</span>
+                <div class="brand-text">
+                    <h1>GENESIS <span>Certificate Pipeline</span></h1>
+                    <p class="brand-badge">Batch Engine: 700+ Records</p>
                 </div>
             </div>
 
-            <!-- Recipient Switcher Toolbar (Carbon Flat Geometry) -->
-            <div class="recipient-nav" id="recipient-nav-bar" aria-label="Recipient navigation toolbar">
-                <button id="btn-first-rec" class="btn-icon" title="First Recipient (Home)">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="11 17 6 12 11 7"></polyline><polyline points="18 17 13 12 18 7"></polyline></svg>
-                </button>
+            <!-- Recipient Switcher Toolbar -->
+            <div class="recipient-nav" id="recipient-nav-bar">
                 <button id="btn-prev-rec" class="btn-icon" title="Previous Recipient (Arrow Left)">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
                 </button>
                 <div class="rec-info">
                     <span class="rec-counter" id="rec-counter-text">Recipient 1 of 700</span>
                     <strong class="rec-name" id="rec-current-name">Sara Fernandez</strong>
                 </div>
                 <button id="btn-next-rec" class="btn-icon" title="Next Recipient (Arrow Right)">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
                 </button>
-                <button id="btn-last-rec" class="btn-icon" title="Last Recipient (End)">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="13 17 18 12 13 7"></polyline><polyline points="6 17 11 12 6 7"></polyline></svg>
-                </button>
-                
-                <div class="jump-box">
-                    <label for="jump-to-index" class="sr-only">Jump to Record</label>
-                    <span class="jump-label">#</span>
-                    <input type="number" id="jump-to-index" min="1" max="700" value="1" title="Jump to record number" class="num-input-small">
-                </div>
+                <input type="number" id="jump-to-index" min="1" max="700" value="1" title="Jump to record number" class="num-input-small">
             </div>
 
-            <!-- Header Action Buttons (Carbon button-secondary and button-primary) -->
+            <!-- Header Action Buttons -->
             <div class="nav-actions">
-                <button id="btn-download-single" class="btn btn-secondary" title="Export current certificate to PNG">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                    Export PNG
+                <button id="btn-download-single" class="btn btn-secondary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    Download Current (PNG/PDF)
                 </button>
-                <button id="btn-batch-modal" class="btn btn-primary" title="Launch high-speed batch generation modal">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-                    Batch Generate All (700+)
+                <button id="btn-batch-modal" class="btn btn-primary glow-button">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                    Batch Generate All 700+
                 </button>
             </div>
         </header>
 
         <!-- MAIN WORKSPACE -->
         <main id="main-workspace">
-            <!-- LEFT CONTROL PANEL (Carbon Product Tabs & Section Cards) -->
+            <!-- LEFT CONTROL PANEL -->
             <aside id="sidebar-panel">
-                <!-- Carbon Product Tab Strip -->
-                <div class="tab-strip" role="tablist">
-                    <button class="product-tab product-tab-selected" id="tab-btn-template" data-tab="tab-template" role="tab" aria-selected="true">
-                        Template
-                    </button>
-                    <button class="product-tab" id="tab-btn-layers" data-tab="tab-layers" role="tab" aria-selected="false">
-                        Layers & Fields
-                    </button>
-                    <button class="product-tab" id="tab-btn-recipients" data-tab="tab-recipients" role="tab" aria-selected="false">
-                        Recipients <span class="tab-badge" id="tab-rec-count">700</span>
-                    </button>
-                    <button class="product-tab" id="tab-btn-cli" data-tab="tab-cli" role="tab" aria-selected="false">
-                        CLI / JSON
-                    </button>
-                </div>
-
-                <!-- TAB PANE 1: TEMPLATE & THEMES -->
-                <div class="tab-content-pane active" id="tab-template">
-                    <div class="sidebar-card">
-                        <div class="card-header">
-                            <span class="eyebrow-text">Design Configuration</span>
-                            <h3 class="card-title-text">Certificate Theme Preset</h3>
-                        </div>
-                        <div class="form-group">
-                            <label for="template-select" class="form-label">Select Base Design</label>
-                            <select id="template-select" class="form-control">
-                                <option value="modern_gold">Modern Gold Excellence</option>
-                                <option value="tech_innovation">Tech Innovation (Slate/Cyan)</option>
-                                <option value="academic_classic">Academic Classic (Royal Blue)</option>
-                            </select>
-                        </div>
-                        
-                        <div class="theme-preview-meta" id="theme-meta-box">
-                            <div class="meta-row">
-                                <span class="meta-label">Dimensions:</span>
-                                <span class="meta-value">1920 × 1080 px (16:9 Landscape)</span>
-                            </div>
-                            <div class="meta-row">
-                                <span class="meta-label">Active Layers:</span>
-                                <span class="meta-value" id="theme-layer-count">6 Configured Elements</span>
-                            </div>
-                            <div class="meta-row">
-                                <span class="meta-label">Output Target:</span>
-                                <span class="meta-value">Print Ready / 300 DPI High Resolution</span>
-                            </div>
-                        </div>
+                <!-- Section 1: Template & Data Presets -->
+                <div class="sidebar-card">
+                    <div class="card-header">
+                        <h3>1. Template & Preset</h3>
+                    </div>
+                    <div class="form-group">
+                        <label for="template-select">Certificate Design Theme</label>
+                        <select id="template-select" class="form-control">
+                            <option value="modern_gold">Modern Gold Excellence</option>
+                            <option value="tech_innovation">Tech Innovation (Slate/Cyan)</option>
+                            <option value="academic_classic">Academic Classic (Royal Blue)</option>
+                        </select>
                     </div>
 
-                    <div class="sidebar-card">
-                        <div class="card-header">
-                            <span class="eyebrow-text">Custom Asset</span>
-                            <h3 class="card-title-text">Upload Custom Background</h3>
-                        </div>
-                        <p class="body-sm-text">Upload a PNG, JPEG, or SVG certificate template image to customize the base canvas.</p>
-                        <div class="upload-dropzone" id="template-dropzone">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <rect x="3" y="3" width="18" height="18" rx="0"></rect>
-                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                                <polyline points="21 15 16 10 5 21"></polyline>
-                            </svg>
-                            <span class="dropzone-text">Click or drag & drop template image</span>
-                            <span class="dropzone-hint">PNG or JPG up to 4K resolution</span>
-                            <input type="file" id="custom-template-input" accept="image/*" class="sr-only">
-                        </div>
+                    <div class="file-upload-row">
+                        <label class="btn btn-outline btn-sm upload-btn">
+                            <span>Upload Custom Template</span>
+                            <input type="file" id="custom-template-input" accept="image/*" style="display:none;">
+                        </label>
                     </div>
                 </div>
 
-                <!-- TAB PANE 2: LAYERS & INSPECTOR -->
-                <div class="tab-content-pane" id="tab-layers">
-                    <div class="sidebar-card">
-                        <div class="card-header-actions">
-                            <div>
-                                <span class="eyebrow-text">Element Layers</span>
-                                <h3 class="card-title-text">Field Inspector</h3>
-                            </div>
-                            <button id="btn-add-field" class="btn btn-tertiary btn-sm" title="Add new custom field layer">
-                                + Add Field
-                            </button>
-                        </div>
+                <!-- Section 2: Recipient Data Source -->
+                <div class="sidebar-card">
+                    <div class="card-header">
+                        <h3>2. Data Source</h3>
+                        <span class="badge" id="data-count-badge">700 Loaded</span>
+                    </div>
+                    <div class="data-source-actions">
+                        <label class="btn btn-outline btn-sm upload-btn full-width">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+                            <span>Upload CSV / Excel File</span>
+                            <input type="file" id="custom-csv-input" accept=".csv, .xlsx, .xls, .json" style="display:none;">
+                        </label>
+                        <button id="btn-reload-sample" class="btn btn-ghost btn-sm">Reset to 700 Sample Data</button>
+                    </div>
+                </div>
 
-                        <!-- Carbon Field Layer Selector Pills -->
-                        <div class="field-pill-selector" id="field-pill-list">
-                            <!-- Populated dynamically: [name] [role] [event] [date] [qr_code] [cert_id] -->
-                        </div>
+                <!-- Section 3: Visual Field Layer Inspector -->
+                <div class="sidebar-card">
+                    <div class="card-header">
+                        <h3>3. Field Customizer</h3>
+                        <button id="btn-add-field" class="btn btn-ghost btn-xs">+ Add Field</button>
                     </div>
 
-                    <!-- Active Field Property Editor -->
-                    <div class="sidebar-card active-editor-card">
-                        <div class="card-header-actions">
-                            <h4 class="property-group-title">Layer Properties: <strong id="editor-active-id-display">name</strong></h4>
-                            <button id="btn-delete-field" class="btn-link-danger" title="Delete this field layer">Remove</button>
-                        </div>
+                    <!-- Fields Selector Tabs -->
+                    <div class="field-pill-selector" id="field-pill-list">
+                        <!-- Populated by JS: [Name] [Role] [Event] [Date] [ID] [QR Code] -->
+                    </div>
 
+                    <!-- Active Field Editor -->
+                    <div id="active-field-editor" class="field-properties-box">
                         <div class="form-row">
                             <div class="form-group flex-1">
-                                <label for="prop-field-key" class="form-label">Data Column Key</label>
+                                <label>Variable Field</label>
                                 <select id="prop-field-key" class="form-control">
                                     <option value="name">name</option>
                                     <option value="role">role</option>
@@ -208,10 +133,10 @@
                                 </select>
                             </div>
                             <div class="form-group flex-1">
-                                <label for="prop-field-type" class="form-label">Layer Type</label>
+                                <label>Field Type</label>
                                 <select id="prop-field-type" class="form-control">
                                     <option value="text">Text Overlay</option>
-                                    <option value="qr_code">QR Verification Code</option>
+                                    <option value="qr_code">QR Code</option>
                                 </select>
                             </div>
                         </div>
@@ -220,342 +145,191 @@
                         <div id="text-prop-group">
                             <div class="form-row">
                                 <div class="form-group flex-2">
-                                    <label for="prop-font-family" class="form-label">Font Family</label>
+                                    <label>Font Family</label>
                                     <select id="prop-font-family" class="form-control">
                                         <option value="'Playfair Display', serif">Playfair Display (Serif)</option>
-                                        <option value="'Cinzel', serif">Cinzel (Classical Roman)</option>
+                                        <option value="'Cinzel', serif">Cinzel (Roman / Classical)</option>
                                         <option value="'Montserrat', sans-serif">Montserrat (Modern Sans)</option>
-                                        <option value="'IBM Plex Sans', sans-serif">IBM Plex Sans (Carbon Sans)</option>
-                                        <option value="'Great Vibes', cursive">Great Vibes (Calligraphy Script)</option>
+                                        <option value="'Great Vibes', cursive">Great Vibes (Calligraphy)</option>
                                         <option value="'Roboto', sans-serif">Roboto (Clean Sans)</option>
                                     </select>
                                 </div>
                                 <div class="form-group flex-1">
-                                    <label for="prop-font-size" class="form-label">Size (px)</label>
-                                    <input type="number" id="prop-font-size" min="10" max="180" value="56" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">Color & Carbon Palette</label>
-                                <div class="color-control-wrapper">
-                                    <input type="color" id="prop-color" value="#0f172a" class="color-swatch-picker" title="Pick color">
-                                    <input type="text" id="prop-color-hex" value="#0f172a" class="form-control color-hex-text" spellcheck="false">
-                                </div>
-                                <div class="quick-palette-swatches">
-                                    <button class="swatch-btn" data-color="#161616" style="background:#161616;" title="Charcoal Ink"></button>
-                                    <button class="swatch-btn" data-color="#0f62fe" style="background:#0f62fe;" title="IBM Blue"></button>
-                                    <button class="swatch-btn" data-color="#0043ce" style="background:#0043ce;" title="Blue 60"></button>
-                                    <button class="swatch-btn" data-color="#9a3412" style="background:#9a3412;" title="Warm Ochre"></button>
-                                    <button class="swatch-btn" data-color="#b48c3c" style="background:#b48c3c;" title="Classic Gold"></button>
-                                    <button class="swatch-btn" data-color="#1e3a8a" style="background:#1e3a8a;" title="Navy Blue"></button>
-                                    <button class="swatch-btn" data-color="#38bdf8" style="background:#38bdf8;" title="Cyan Tech"></button>
-                                    <button class="swatch-btn" data-color="#ffffff" style="background:#ffffff; border:1px solid #e0e0e0;" title="White"></button>
+                                    <label>Font Size</label>
+                                    <input type="number" id="prop-font-size" min="10" max="150" value="56" class="form-control">
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group flex-1">
-                                    <label class="form-label">Alignment</label>
-                                    <div class="btn-group-toggle" id="prop-align-group" role="group" aria-label="Text alignment">
-                                        <button data-align="left" class="btn-toggle" title="Align Left">Left</button>
-                                        <button data-align="center" class="btn-toggle active" title="Align Center">Center</button>
-                                        <button data-align="right" class="btn-toggle" title="Align Right">Right</button>
+                                    <label>Color</label>
+                                    <div class="color-picker-wrapper">
+                                        <input type="color" id="prop-color" value="#0f172a">
+                                        <input type="text" id="prop-color-hex" value="#0f172a" class="form-control color-hex-text">
+                                    </div>
+                                </div>
+                                <div class="form-group flex-1">
+                                    <label>Alignment</label>
+                                    <div class="btn-group-toggle" id="prop-align-group">
+                                        <button data-align="left" class="btn-toggle">L</button>
+                                        <button data-align="center" class="btn-toggle active">C</button>
+                                        <button data-align="right" class="btn-toggle">R</button>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="prop-prefix" class="form-label">Prefix Text</label>
+                                <label>Prefix Text</label>
                                 <input type="text" id="prop-prefix" placeholder="e.g. for exemplary performance as " class="form-control">
                             </div>
 
-                            <div class="checkbox-container">
-                                <label class="carbon-checkbox-label">
-                                    <input type="checkbox" id="prop-auto-fit" checked class="carbon-checkbox">
-                                    <span class="checkbox-custom"></span>
-                                    <span class="checkbox-text">Auto-fit & Shrink long text to fit canvas margins</span>
+                            <div class="form-row checkbox-row">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="prop-auto-fit" checked>
+                                    <span>Auto-fit & Shrink long names</span>
                                 </label>
                             </div>
                         </div>
 
-                        <!-- QR Code Specific Properties -->
-                        <div id="prop-size-group" style="display:none;">
-                            <div class="form-group">
-                                <label for="prop-size" class="form-label">QR Code Dimension (px)</label>
+                        <!-- Coordinates Box -->
+                        <div class="form-row coords-row">
+                            <div class="form-group flex-1">
+                                <label>X Position</label>
+                                <input type="number" id="prop-x" class="form-control">
+                            </div>
+                            <div class="form-group flex-1">
+                                <label>Y Position</label>
+                                <input type="number" id="prop-y" class="form-control">
+                            </div>
+                            <div class="form-group flex-1" id="prop-size-group" style="display:none;">
+                                <label>QR Size</label>
                                 <input type="number" id="prop-size" min="40" max="400" value="105" class="form-control">
                             </div>
                         </div>
-
-                        <!-- Position Coordinates -->
-                        <div class="coordinates-group">
-                            <label class="form-label">Canvas Coordinates (X, Y in px)</label>
-                            <div class="form-row coords-row">
-                                <div class="form-group flex-1">
-                                    <span class="coord-label">X:</span>
-                                    <input type="number" id="prop-x" class="form-control">
-                                </div>
-                                <div class="form-group flex-1">
-                                    <span class="coord-label">Y:</span>
-                                    <input type="number" id="prop-y" class="form-control">
-                                </div>
-                                <button id="btn-center-x" class="btn btn-secondary btn-xs" title="Center Layer Horizontally (X=960)">Center X</button>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
-                <!-- TAB PANE 3: RECIPIENTS & DATA TABLE -->
-                <div class="tab-content-pane" id="tab-recipients">
-                    <div class="sidebar-card">
-                        <div class="card-header-actions">
-                            <div>
-                                <span class="eyebrow-text">Batch Data Source</span>
-                                <h3 class="card-title-text">Recipients Registry</h3>
-                            </div>
-                            <span class="badge-tag primary" id="data-count-badge">700 Records</span>
-                        </div>
-
-                        <!-- Search Filter -->
-                        <div class="search-box-wrapper">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                            <input type="text" id="recipient-search-input" placeholder="Search 700 recipients by name, role, ID..." class="form-control search-input">
-                        </div>
-
-                        <!-- Recipient Fast-Jump Table -->
-                        <div class="recipient-table-container">
-                            <table class="carbon-table" id="recipients-quick-table">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Recipient Name</th>
-                                        <th>Role / Event</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="recipients-table-body">
-                                    <!-- Populated dynamically with 700 rows -->
-                                </tbody>
-                            </table>
-                        </div>
+                <!-- Section 4: CLI Config Sync -->
+                <div class="sidebar-card">
+                    <div class="card-header">
+                        <h3>4. Python CLI Sync</h3>
                     </div>
-
-                    <div class="sidebar-card">
-                        <div class="card-header">
-                            <span class="eyebrow-text">Data Operations</span>
-                            <h3 class="card-title-text">Import / Reset Dataset</h3>
-                        </div>
-                        <div class="data-source-actions">
-                            <label class="btn btn-secondary btn-sm full-width upload-label">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
-                                <span>Upload Custom CSV / XLSX</span>
-                                <input type="file" id="custom-csv-input" accept=".csv, .xlsx, .xls, .json" class="sr-only">
-                            </label>
-                            <button id="btn-reload-sample" class="btn btn-tertiary btn-sm full-width">Reset to 700 Sample Data</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- TAB PANE 4: PYTHON CLI & CONFIG SYNC -->
-                <div class="tab-content-pane" id="tab-cli">
-                    <div class="sidebar-card">
-                        <div class="card-header">
-                            <span class="eyebrow-text">Pipeline Automation</span>
-                            <h3 class="card-title-text">Python CLI Sync</h3>
-                        </div>
-                        <p class="body-sm-text">Export layout JSON to run headless multi-process batch generations via terminal CLI.</p>
-                        
-                        <div class="cli-cmd-box">
-                            <div class="cli-box-header">
-                                <span class="cli-tag">Terminal Command</span>
-                                <button id="btn-copy-cli-cmd" class="btn-copy-sm" title="Copy CLI Command">Copy</button>
-                            </div>
-                            <code id="cli-command-code">python3 generate.py --data data/sample_recipients.csv --config config/template_config.json --format pdf,png --workers 8</code>
-                        </div>
-
-                        <div class="config-sync-buttons">
-                            <button id="btn-export-config-json" class="btn btn-secondary btn-sm flex-1">Export Config JSON</button>
-                            <button id="btn-import-config-json" class="btn btn-tertiary btn-sm flex-1">Load Config JSON</button>
-                            <input type="file" id="config-json-input" accept=".json" class="sr-only">
-                        </div>
-                    </div>
-
-                    <div class="sidebar-card">
-                        <div class="card-header">
-                            <span class="eyebrow-text">Architecture Info</span>
-                            <h3 class="card-title-text">Pipeline Specifications</h3>
-                        </div>
-                        <ul class="carbon-spec-list">
-                            <li><strong>Throughput:</strong> Up to 50+ certs/sec using multiprocessing workers.</li>
-                            <li><strong>Verification:</strong> Built-in 2D Matrix QR code encoding with SHA-256 ID validation.</li>
-                            <li><strong>Compatibility:</strong> Fully synced between Visual Studio Canvas and Python Pillow/ReportLab engine.</li>
-                        </ul>
+                    <p class="hint-text">Export layout JSON to pass directly into <code>python generate.py -c config.json</code></p>
+                    <div class="config-sync-buttons">
+                        <button id="btn-export-config-json" class="btn btn-outline btn-sm">Export Config JSON</button>
+                        <button id="btn-import-config-json" class="btn btn-ghost btn-sm">Load Config JSON</button>
+                        <input type="file" id="config-json-input" accept=".json" style="display:none;">
                     </div>
                 </div>
             </aside>
 
-            <!-- CENTER CANVAS VIEWPORT -->
+            <!-- CENTER CANVAS PREVIEW AREA -->
             <section id="canvas-viewport-container">
-                <!-- Canvas Viewport Toolbar -->
                 <div class="viewport-toolbar">
                     <div class="zoom-controls">
-                        <button id="btn-zoom-out" class="btn-icon-square" title="Zoom Out (-)">-</button>
-                        <span id="zoom-level-text" class="zoom-text">Fit</span>
-                        <button id="btn-zoom-in" class="btn-icon-square" title="Zoom In (+)">+</button>
-                        <button id="btn-zoom-fit" class="btn-ghost-sm">Reset Fit</button>
+                        <button id="btn-zoom-out" class="btn-icon-sm" title="Zoom Out">-</button>
+                        <span id="zoom-level-text">Fit</span>
+                        <button id="btn-zoom-in" class="btn-icon-sm" title="Zoom In">+</button>
+                        <button id="btn-zoom-fit" class="btn-ghost btn-xs">Reset Fit</button>
                     </div>
 
-                    <div class="canvas-overlays-toolbar">
-                        <button id="btn-toggle-grid" class="btn-overlay-toggle" title="Toggle 50px Alignment Grid">Grid</button>
-                        <button id="btn-toggle-margins" class="btn-overlay-toggle" title="Toggle Print Safe Margins">Safe Margins</button>
-                        <button id="btn-toggle-boxes" class="btn-overlay-toggle active" title="Toggle Layer Bounding Boxes">Layer Boxes</button>
+                    <div class="canvas-hints">
+                        <span>💡 Drag any text or QR code to reposition directly on canvas</span>
                     </div>
 
-                    <div class="viewport-info-meta">
-                        <span class="resolution-badge" id="canvas-res-badge">1920 × 1080 (300 DPI)</span>
+                    <div class="resolution-badge" id="canvas-res-badge">
+                        1920 × 1080 (300 DPI)
                     </div>
                 </div>
 
-                <!-- Canvas Workspace Stage -->
+                <!-- Canvas Wrapper with Pan/Zoom support -->
                 <div id="canvas-stage">
-                    <div id="canvas-wrapper">
-                        <canvas id="certificate-canvas" width="1920" height="1080"></canvas>
-                        <!-- Grid Overlay Canvas -->
-                        <canvas id="grid-canvas" width="1920" height="1080"></canvas>
-                        <!-- Interactive Drag Tooltip HUD -->
-                        <div id="drag-hud-tooltip" class="drag-hud" style="display:none;">X: 960, Y: 335</div>
-                    </div>
+                    <canvas id="certificate-canvas" width="1920" height="1080"></canvas>
+                    <div id="selection-overlay"></div>
                 </div>
-
-                <!-- BOTTOM STATUS FOOTER (Carbon Inverse Footer: Charcoal #161616) -->
-                <footer id="workspace-footer">
-                    <div class="footer-col-brand">
-                        <span class="footer-wordmark">IBM Genesis Pipeline</span>
-                        <span class="footer-subtext">Carbon Design System v11 • High-Performance Batch Engine</span>
-                    </div>
-                    <div class="footer-col-stats">
-                        <div class="stat-pill"><span class="stat-dot-green"></span> System: Active</div>
-                        <div class="stat-pill">Dataset: 700 Records Loaded</div>
-                        <div class="stat-pill">Engine: Canvas2D + jsPDF + Python CLI</div>
-                    </div>
-                    <div class="footer-col-shortcuts">
-                        <span class="shortcut-item"><kbd>←</kbd> <kbd>→</kbd> Navigate</span>
-                        <span class="shortcut-item"><kbd>Ctrl</kbd>+<kbd>B</kbd> Batch</span>
-                        <span class="shortcut-item"><kbd>Ctrl</kbd>+<kbd>S</kbd> Export</span>
-                    </div>
-                </footer>
             </section>
         </main>
 
-        <!-- BATCH GENERATION MODAL (Carbon Modal Dialog: Flat 0px Surface, Hairline Border) -->
-        <div id="batch-modal" class="modal-backdrop" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <!-- BATCH GENERATION MODAL -->
+        <div id="batch-modal" class="modal-backdrop" style="display:none;">
             <div class="modal-dialog">
                 <div class="modal-header">
                     <div class="modal-title-wrap">
-                        <span class="eyebrow-text">High-Throughput Batch Engine</span>
-                        <h2 id="modal-title" class="modal-headline">Generate 700+ Certificates</h2>
-                        <p class="modal-subhead">Concurrently render and package certificates for all <strong id="modal-total-count">700</strong> recipients in high-resolution.</p>
+                        <h2>Batch Certificate Pipeline Engine</h2>
+                        <p>Generate certificates for all <strong id="modal-total-count">700</strong> recipients with one click</p>
                     </div>
-                    <button id="btn-close-modal" class="btn-modal-close" aria-label="Close modal">&times;</button>
+                    <button id="btn-close-modal" class="btn-close">&times;</button>
                 </div>
 
                 <div class="modal-body">
-                    <!-- Batch Settings View -->
+                    <!-- Options -->
                     <div class="batch-options-grid" id="batch-settings-view">
                         <div class="option-card">
-                            <h4 class="option-title">Output Formats & Packaging</h4>
+                            <h4>Select Output Formats</h4>
                             <div class="format-checkboxes">
-                                <label class="carbon-checkbox-label">
-                                    <input type="checkbox" id="chk-fmt-png" checked class="carbon-checkbox">
-                                    <span class="checkbox-custom"></span>
-                                    <span class="checkbox-text"><strong>High-Resolution PNG Archive (.ZIP)</strong> — Individual full-fidelity 1920×1080 images</span>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="chk-fmt-png" checked>
+                                    <span>High-Resolution PNG (Individual files in ZIP)</span>
                                 </label>
-                                <label class="carbon-checkbox-label">
-                                    <input type="checkbox" id="chk-fmt-pdf" checked class="carbon-checkbox">
-                                    <span class="checkbox-custom"></span>
-                                    <span class="checkbox-text"><strong>Single Consolidated Master PDF</strong> — All 700 certificates bound into one printable document</span>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="chk-fmt-pdf" checked>
+                                    <span>Single Master PDF (All 700 pages consolidated)</span>
                                 </label>
-                                <label class="carbon-checkbox-label">
-                                    <input type="checkbox" id="chk-fmt-indiv-pdf" class="carbon-checkbox">
-                                    <span class="checkbox-custom"></span>
-                                    <span class="checkbox-text"><strong>Individual Recipient PDFs (.ZIP)</strong> — Separate standalone PDF file per record</span>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="chk-fmt-indiv-pdf">
+                                    <span>Individual PDFs (Separate .pdf for each recipient)</span>
                                 </label>
                             </div>
                         </div>
 
                         <div class="option-card">
-                            <h4 class="option-title">High-Performance Terminal CLI Alternative</h4>
-                            <p class="body-sm-text">For maximum CPU multi-threading speed, execute the pipeline directly in your terminal:</p>
-                            <div class="cli-cmd-box">
+                            <h4>Execution Mode</h4>
+                            <p class="hint-text">Choose between fast in-browser export or high-speed Python terminal CLI</p>
+                            <div class="engine-pills">
+                                <button class="btn btn-primary btn-sm active" id="btn-run-browser-batch">Start Browser Batch Engine</button>
+                            </div>
+                            <div class="cli-cmd-preview">
+                                <span class="cli-lbl">Terminal CLI Command:</span>
                                 <code>python3 generate.py --data data/sample_recipients.csv --format pdf,png --workers 8</code>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Batch Progress View (Shown during execution) -->
+                    <!-- Progress View (Shown during generation) -->
                     <div id="batch-progress-view" style="display:none;">
-                        <div class="progress-stats-grid">
-                            <div class="stat-card">
-                                <span class="stat-card-label">Progress</span>
-                                <span class="stat-card-val" id="progress-percentage">0%</span>
+                        <div class="progress-stats">
+                            <div class="stat-box">
+                                <span class="stat-label">Progress</span>
+                                <span class="stat-val" id="progress-percentage">0%</span>
                             </div>
-                            <div class="stat-card">
-                                <span class="stat-card-label">Processed Records</span>
-                                <span class="stat-card-val" id="progress-count">0 / 700</span>
+                            <div class="stat-box">
+                                <span class="stat-label">Processed</span>
+                                <span class="stat-val" id="progress-count">0 / 700</span>
                             </div>
-                            <div class="stat-card">
-                                <span class="stat-card-label">Rendering Velocity</span>
-                                <span class="stat-card-val" id="progress-speed">0 cert/s</span>
+                            <div class="stat-box">
+                                <span class="stat-label">Speed</span>
+                                <span class="stat-val" id="progress-speed">0 cert/s</span>
                             </div>
                         </div>
 
-                        <div class="progress-bar-track">
+                        <div class="progress-bar-container">
                             <div class="progress-bar-fill" id="progress-bar-fill"></div>
                         </div>
 
-                        <div class="current-processing-banner">
-                            <span class="status-pulse-dot"></span>
-                            <span id="current-processing-text">Preparing batch renderer...</span>
+                        <div class="current-processing-name" id="current-processing-text">
+                            Rendering certificate for Sara Fernandez...
                         </div>
                     </div>
                 </div>
 
                 <div class="modal-footer" id="modal-footer-view">
-                    <button id="btn-cancel-batch" class="btn btn-secondary">Cancel</button>
-                    <button id="btn-start-batch-exec" class="btn btn-primary">Start Batch Generation (700 Records)</button>
+                    <button id="btn-cancel-batch" class="btn btn-secondary">Close</button>
+                    <button id="btn-start-batch-exec" class="btn btn-primary glow-button">Start Batch Generation</button>
                 </div>
             </div>
         </div>
 
-        <!-- KEYBOARD SHORTCUTS MODAL -->
-        <div id="shortcuts-modal" class="modal-backdrop" style="display:none;" role="dialog" aria-modal="true">
-            <div class="modal-dialog modal-dialog-sm">
-                <div class="modal-header">
-                    <div class="modal-title-wrap">
-                        <span class="eyebrow-text">Productivity</span>
-                        <h2 class="modal-headline">Keyboard Shortcuts</h2>
-                    </div>
-                    <button id="btn-close-shortcuts" class="btn-modal-close">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <table class="shortcuts-table">
-                        <tr><td><kbd>→</kbd> / <kbd>←</kbd></td><td>Next / Previous Recipient</td></tr>
-                        <tr><td><kbd>Home</kbd> / <kbd>End</kbd></td><td>First / Last Recipient</td></tr>
-                        <tr><td><kbd>Ctrl</kbd> + <kbd>B</kbd></td><td>Open Batch Generator Modal</td></tr>
-                        <tr><td><kbd>Ctrl</kbd> + <kbd>S</kbd></td><td>Export Current Certificate PNG</td></tr>
-                        <tr><td><kbd>+</kbd> / <kbd>-</kbd></td><td>Zoom In / Zoom Out Canvas</td></tr>
-                        <tr><td><kbd>0</kbd></td><td>Reset Canvas Zoom Fit</td></tr>
-                        <tr><td><kbd>G</kbd></td><td>Toggle Alignment Grid</td></tr>
-                        <tr><td><kbd>Esc</kbd></td><td>Close Active Modal</td></tr>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button id="btn-done-shortcuts" class="btn btn-primary">Got it</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- HIDDEN QR CODE TEMP CONTAINER -->
+        <!-- HIDDEN QR CODE CANVAS CONTAINER -->
         <div id="qr-generator-temp" style="display:none;"></div>
     </div>
 
